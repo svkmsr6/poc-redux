@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import Header from './components/Header/Header';
+import Info from './components/Info';
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      attr:true,
+      attr:false,
       data:{
         body:'',
       },
@@ -31,30 +33,46 @@ class App extends Component {
 
   render() {
     //this.toggleState();
-    console.log(this.inputTxt.value);
+    //console.log(this.inputTxt.value);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+        <Header logo={logo} />
+        <br />
         <p style={{fontSize: (this.state.attr)? 30 : 10}} className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <input 
-        type="text" 
-        ref={ref => this.inputTxt = ref}
-        value={this.state.term} 
-        onChange={e => this.setState({term: e.target.value})}
-        />
-        <ul>
+        <br />
         {
-          this.state.list
-          .filter(item => item.toLowerCase().includes(this.state.term.toLowerCase()) || (this.state.term === ''))
-          .map((item,index,stateList) => <li key={index}>{item}</li>)
+          (this.state.attr)?<Info term={this.state.term}/>:null
         }
-        </ul>
+        <br />
+        <input 
+          type="text" 
+          ref={ref => this.inputTxt = ref}
+          value={this.state.term} 
+          onChange={e => this.setState({term: e.target.value})}
+        />
+        <br />
+        <br />
+        <div style={
+          {
+            width:'30%', 
+            border:'2px solid',
+            margin:'auto'
+          }
+        }>
+          <ul>
+          {
+            this.state.list
+            .filter(item => item.toLowerCase().includes(this.state.term.toLowerCase()) || (this.state.term === ''))
+            .map((item,index,stateList) => <li key={index}>{item}</li>)
+          }
+          </ul>
+        </div>
+        <br />
+        <br />
         <button onClick={() => this.toggleState()}>CLICK ME</button>
+        <br />
         <br />
         {this.state.data.body.length}
       </div>
