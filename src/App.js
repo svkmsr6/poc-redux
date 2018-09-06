@@ -13,7 +13,8 @@ class App extends Component {
         body:'',
       },
       term:'',
-      list:['Brahma','Vishnu','Shiva']
+      list:['Brahma','Vishnu','Shiva'],
+      status:'DEFAULT'
     }
     this.inputTxt = '';
     //this.toggleState.bind(this);
@@ -27,8 +28,13 @@ class App extends Component {
 
   toggleState(){
     this.setState({
-      attr: !this.state.attr
+      attr: !this.state.attr,
+      status:'DEFAULT'
     })
+  }
+
+  updateStatus(status){
+     this.setState({status});
   }
 
   render() {
@@ -43,7 +49,12 @@ class App extends Component {
         </p>
         <br />
         {
-          (this.state.attr)?<Info term={this.state.term}/>:null
+          (this.state.attr)?
+          <Info 
+            term={this.state.term}
+            updateStatus={status => this.updateStatus(status)}
+          />:
+          null
         }
         <br />
         <input 
@@ -74,7 +85,8 @@ class App extends Component {
         <button onClick={() => this.toggleState()}>CLICK ME</button>
         <br />
         <br />
-        {this.state.data.body.length}
+        {/* {this.state.data.body.length} */}
+        { this.state.status }
       </div>
     );
   }

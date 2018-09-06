@@ -7,6 +7,7 @@ export default class Info extends Component {
       this.state = {
           switch:'on'
       };
+      console.log('Info Initialization');
   }
 
   componentWillMount(){
@@ -41,10 +42,12 @@ export default class Info extends Component {
   }
 
   toggleState(){
-    this.setState(state =>({switch:(state.switch === 'off')?'on':'off'}))
+    this.setState(state =>({switch:(state.switch === 'off')?'on':'off'}));
+    this.props.updateStatus((this.state.switch === 'on')?'ON':'OFF');
   }
 
   render() {
+    console.log('Info Render');
     return (
       <div className="info-container">
         <p>Search Term - {this.props.term}</p>
